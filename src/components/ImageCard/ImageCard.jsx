@@ -1,7 +1,7 @@
 const ImageCard = ({
   imageItem: {
     alt_description,
-    urls: { small, regular },
+    urls: { small },
   },
 }) => {
   return (

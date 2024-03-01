@@ -4,6 +4,7 @@ import { useState } from "react";
 import ImageGallery from "../ImageGallery/ImageGallery";
 import LoadMoreBtn from "../LoadMoreBtn/LoadMoreBtn";
 import ErrorMessage from "../ErrorMessage/ErrorMessage";
+import LoaderMore from "../Loader/LoaderMore";
 import Loader from "../Loader/Loader";
 import ImageModal from "../ImageModal/ImageModal";
 
@@ -11,23 +12,31 @@ function App() {
   const [images, setImages] = useState([]);
   const [page, setPage] = useState(1);
   const [search, setSearch] = useState("");
+  const [error, setError] = useState(false);
+  const [totalPages, setTotalPages] = useState(1);
+
+  const [loading, setLoading] = useState(false);
+  const [loadingMore, setLoadingMore] = useState(false);
 
   const handleSearch = async (searchQuery) => {
     try {
+      setLoading(true);
       setImages([]);
       setPage(1);
       setSearch(searchQuery);
       const dataImg = await getImagesUnplash(searchQuery, 1);
+      setTotalPages(dataImg.total_pages);
       setImages(dataImg.results);
     } catch {
-      console.log("Error");
+      setError(true);
     } finally {
-      console.log("Hello");
+      setLoading(false);
     }
   };
 
   const handleLoadMore = async () => {
     try {
+      setLoadingMore(true);
       const nextPage = page + 1;
       const dataImages = await getImagesUnplash(search, nextPage);
       setImages((prevImages) => {
@@ -35,18 +44,26 @@ function App() {
       });
       setPage(nextPage);
     } catch (error) {
-      console.log(error);
+      setError(true);
+    } finally {
+      setLoadingMore(false);
     }
+  };
+
+  const isVisible = () => {
+    return totalPages !== 1 && totalPages !== page;
   };
 
   return (
     <>
       <SearchBar onSubmit={handleSearch} />
+      {loading && <Loader />}
+      {error && <ErrorMessage />}
       <ImageGallery imageList={images} />
-      <LoadMoreBtn onClick={handleLoadMore} />
-      <ErrorMessage />
+      <LoadMoreBtn onClick={handleLoadMore} isVisible={isVisible} />
+      {loadingMore && <LoaderMore />}
+
       <ImageModal />
-      <Loader />
     </>
   );
 }

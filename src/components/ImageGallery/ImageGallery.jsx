@@ -1,5 +1,4 @@
 import ImageCard from "../ImageCard/ImageCard";
-// import { nanoid } from "nanoid";
 
 const ImageGallery = ({ imageList }) => {
   return (

@@ -12,6 +12,7 @@ export const getImagesUnplash = async (searchImg, pageNumber) => {
     }
     try {
         const respons = await axios.get(`search/photos/?${new URLSearchParams(params).toString()}`);
+        console.log(respons)
         return respons.data;
     }
     catch (error) {

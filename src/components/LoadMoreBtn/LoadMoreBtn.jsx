@@ -1,9 +1,5 @@
-const LoadMoreBtn = ({ onClick }) => {
-  return (
-    <>
-      <button onClick={onClick}>Load More</button>
-    </>
-  );
+const LoadMoreBtn = ({ onClick, isVisible }) => {
+  return <>{isVisible() && <button onClick={onClick}>Load More</button>}</>;
 };
 
 export default LoadMoreBtn;

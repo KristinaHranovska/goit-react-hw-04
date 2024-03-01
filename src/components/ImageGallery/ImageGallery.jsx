@@ -1,10 +1,15 @@
 import ImageCard from "../ImageCard/ImageCard";
+// import { nanoid } from "nanoid";
 
-const ImageGallery = () => {
+const ImageGallery = ({ imageList }) => {
   return (
-    <>
-      <ImageCard />
-    </>
+    <ul>
+      {imageList.map((img) => (
+        <li key={img.id}>
+          <ImageCard imageItem={img} />
+        </li>
+      ))}
+    </ul>
   );
 };
 

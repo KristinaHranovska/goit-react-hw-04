@@ -60,7 +60,7 @@ function App() {
   };
 
   const isVisible = () => {
-    return totalPages !== 1 && totalPages !== page;
+    return totalPages !== 0 && totalPages !== page;
   };
 
   const openModal = (image) => {

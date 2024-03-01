@@ -38,6 +38,7 @@ const ImageModal = ({ isOpen, onCloseModal, image }) => {
               <br />
               <p>Created on: {formatDate(image.created_at)}</p>
               <br />
+              {image.user.location && <p>Location: {image.user.location}</p>}
             </div>
           </div>
         </div>

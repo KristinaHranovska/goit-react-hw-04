@@ -1,5 +1,6 @@
 import { Field, Form, Formik } from "formik";
 import toast, { Toaster } from "react-hot-toast";
+
 const SearchBar = ({ onSubmit }) => {
   const handleSubmit = (values, actions) => {
     onSubmit(values.search);

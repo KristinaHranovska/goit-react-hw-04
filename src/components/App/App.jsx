@@ -6,9 +6,12 @@ import Loader from "../Loader/Loader";
 import SearchBar from "../SearchBar/SearchBar";
 
 function App() {
+  const handleSearch = (search) => {
+    console.log(search);
+  };
   return (
     <>
-      <SearchBar />
+      <SearchBar onSubmit={handleSearch} />
       <ErrorMessage />
       <Loader />
       <ImageGallery />

@@ -91,12 +91,10 @@ function App() {
       <Toaster position="top-center" reverseOrder={false} />
       {loading && <Loader />}
       {error && <ErrorMessage />}
-
       <ImageGallery imageList={images} openModal={openModal} />
 
       <LoadMoreBtn onClick={handleLoadMore} isVisible={isVisible} />
       {loadingMore && <LoaderMore />}
-
       <ImageModal
         isOpen={modalIsOpen}
         image={selectedImage}

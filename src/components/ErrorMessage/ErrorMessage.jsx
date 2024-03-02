@@ -1,9 +1,11 @@
+import css from "./ErrorMessage.module.css";
+
 const ErrorMessage = () => {
   return (
     <>
-      <p>
+      <p className={css.errorMessage}>
         Whoops, something went wrong! <br />
-        😮 Please try reloading this page!
+        Please try reloading this page!
       </p>
     </>
   );

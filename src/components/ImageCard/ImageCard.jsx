@@ -1,4 +1,5 @@
-import { AiOutlineLike } from "react-icons/ai";
+import css from "./ImageCard.module.css";
+
 const ImageCard = ({
   imageItem: {
     alt_description,
@@ -11,14 +12,22 @@ const ImageCard = ({
   },
 }) => {
   return (
-    <div>
-      <img src={small} alt={alt_description} width="360" />
-      <div>
-        <p>
-          Author: <a href={portfolio_url}>{name}</a>
+    <div className={css.galleryThumb}>
+      <img
+        className={css.galleryImage}
+        src={small}
+        alt={alt_description}
+        width="360"
+      />
+      <div className={css.thumbBlock}>
+        <p className={css.textPhoto}>
+          ✍️ <strong>Author</strong>
+          <br />
+          <a href={portfolio_url}>{name}</a>
         </p>
-        <p>
-          <AiOutlineLike /> Likes: {likes}
+        <p className={css.textPhoto}>
+          ❤️ <strong>Likes: </strong>
+          {likes}
         </p>
       </div>
     </div>

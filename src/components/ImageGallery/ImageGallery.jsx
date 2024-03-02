@@ -1,4 +1,5 @@
 import ImageCard from "../ImageCard/ImageCard";
+import css from "./ImageGallery.module.css";
 
 const ImageGallery = ({ imageList, openModal }) => {
   const imageClick = (event) => {
@@ -12,17 +13,17 @@ const ImageGallery = ({ imageList, openModal }) => {
     }
   };
   return (
-    <>
+    <section className={css.containerGallery}>
       {imageList.length > 0 && (
-        <ul onClick={imageClick}>
+        <ul className={css.gallery} onClick={imageClick}>
           {imageList.map((img) => (
-            <li key={img.id} data-id={img.id}>
+            <li className={css.galleryItem} key={img.id} data-id={img.id}>
               <ImageCard imageItem={img} />
             </li>
           ))}
         </ul>
       )}
-    </>
+    </section>
   );
 };
 

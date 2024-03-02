@@ -8,7 +8,6 @@ const formatDate = (dateString) => {
 };
 
 const ImageModal = ({ isOpen, onCloseModal, image }) => {
-  console.log(image);
   return (
     <Modal isOpen={isOpen} onRequestClose={onCloseModal}>
       {image && (

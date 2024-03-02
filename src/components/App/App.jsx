@@ -2,6 +2,7 @@ import { getImagesUnplash } from "../../images-api";
 import { useEffect, useState } from "react";
 import Modal from "react-modal";
 import "../../../node_modules/modern-normalize/modern-normalize.css";
+import toast, { Toaster } from "react-hot-toast";
 
 import SearchBar from "../SearchBar/SearchBar";
 import Loader from "../Loader/Loader";
@@ -37,6 +38,21 @@ function App() {
       const dataImg = await getImagesUnplash(searchQuery, 1);
       setTotalPages(dataImg.total_pages);
       setImages(dataImg.results);
+      console.log(dataImg.total);
+
+      if (searchQuery.trim() === "") {
+        toast.error("The search field cannot be empty!");
+        return;
+      } else if (!dataImg.total) {
+        toast(
+          "Sorry, we have found the photos for your request.\nTry writing it differently.",
+          {
+            duration: 6000,
+          }
+        );
+      } else {
+        toast.success(`Wow! We found ${dataImg.total} pictures`);
+      }
     } catch {
       setError(true);
     } finally {
@@ -73,6 +89,7 @@ function App() {
   return (
     <>
       <SearchBar onSubmit={handleSearch} />
+      <Toaster position="top-center" reverseOrder={false} />
       {loading && <Loader />}
       {error && <ErrorMessage />}
       <ImageGallery imageList={images} openModal={openModal} />

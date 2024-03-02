@@ -38,7 +38,6 @@ function App() {
       const dataImg = await getImagesUnplash(searchQuery, 1);
       setTotalPages(dataImg.total_pages);
       setImages(dataImg.results);
-      console.log(dataImg.total);
 
       if (searchQuery.trim() === "") {
         toast.error("The search field cannot be empty!");
@@ -92,7 +91,9 @@ function App() {
       <Toaster position="top-center" reverseOrder={false} />
       {loading && <Loader />}
       {error && <ErrorMessage />}
+
       <ImageGallery imageList={images} openModal={openModal} />
+
       <LoadMoreBtn onClick={handleLoadMore} isVisible={isVisible} />
       {loadingMore && <LoaderMore />}
 

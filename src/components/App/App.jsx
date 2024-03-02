@@ -1,6 +1,7 @@
 import { getImagesUnplash } from "../../images-api";
 import { useEffect, useState } from "react";
 import Modal from "react-modal";
+import "../../../node_modules/modern-normalize/modern-normalize.css";
 
 import SearchBar from "../SearchBar/SearchBar";
 import Loader from "../Loader/Loader";

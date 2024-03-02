@@ -23,7 +23,9 @@ const ImageCard = ({
         <p className={css.textPhoto}>
           ✍️ <strong>Author</strong>
           <br />
-          <a href={portfolio_url}>{name}</a>
+          <a href={portfolio_url} target="_blank" rel="noopener noreferrer">
+            {name}
+          </a>
         </p>
         <p className={css.textPhoto}>
           ❤️ <strong>Likes: </strong>

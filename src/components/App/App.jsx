@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import Modal from "react-modal";
 import "../../../node_modules/modern-normalize/modern-normalize.css";
 import toast, { Toaster } from "react-hot-toast";
+import css from "./App.module.css";
 
 import SearchBar from "../SearchBar/SearchBar";
 import Loader from "../Loader/Loader";
@@ -13,17 +14,16 @@ import ErrorMessage from "../ErrorMessage/ErrorMessage";
 import ImageModal from "../ImageModal/ImageModal";
 
 function App() {
-  const [images, setImages] = useState([]);
-  const [page, setPage] = useState(1);
-  const [search, setSearch] = useState("");
-  const [error, setError] = useState(false);
-  const [totalPages, setTotalPages] = useState(1);
-
-  const [loading, setLoading] = useState(false);
-  const [loadingMore, setLoadingMore] = useState(false);
-
-  const [selectedImage, setSelectedImage] = useState(null);
-  const [modalIsOpen, setModalIsOpen] = useState(false);
+  const [images, setImages] = useState([]); // Стан для зберігання списку зображень
+  const [page, setPage] = useState(1); // Стан для зберігання поточної сторінки результатів
+  const [totalPages, setTotalPages] = useState(1); // Стан для зберігання загальної кількості сторінок результатів
+  const [search, setSearch] = useState(""); // Стан для зберігання поточного пошукового запиту
+  const [error, setError] = useState(false); // Стан для відображення помилки
+  const [loading, setLoading] = useState(false); // Стан для відображення завантаження основного контенту
+  const [loadingMore, setLoadingMore] = useState(false); // Стан для відображення завантаження додаткового контенту
+  const [isSearching, setIsSearching] = useState(false); // Стан для відображення процесу пошуку нових зображень
+  const [selectedImage, setSelectedImage] = useState(null); // Стан для зберігання вибраного зображення для модального вікна
+  const [modalIsOpen, setModalIsOpen] = useState(false); // Стан для відображення/приховування модального вікна
 
   useEffect(() => {
     Modal.setAppElement("#root");
@@ -32,6 +32,7 @@ function App() {
   const handleSearch = async (searchQuery) => {
     try {
       setLoading(true);
+      setIsSearching(true);
       setImages([]);
       setPage(1);
       setSearch(searchQuery);
@@ -44,9 +45,9 @@ function App() {
         return;
       } else if (!dataImg.total) {
         toast(
-          "Sorry, we have found the photos for your request.\nTry writing it differently.",
+          "Sorry, we have not found the photos for your request. Try to write it differently.",
           {
-            duration: 6000,
+            duration: 5000,
           }
         );
       } else {
@@ -56,6 +57,7 @@ function App() {
       setError(true);
     } finally {
       setLoading(false);
+      setIsSearching(false);
     }
   };
 
@@ -76,7 +78,7 @@ function App() {
   };
 
   const isVisible = () => {
-    return totalPages !== 0 && totalPages !== page;
+    return totalPages !== 0 && totalPages !== page && !loadingMore;
   };
 
   const openModal = (image) => {
@@ -88,12 +90,19 @@ function App() {
   return (
     <>
       <SearchBar onSubmit={handleSearch} />
-      <Toaster position="top-center" reverseOrder={false} />
+      <Toaster
+        position="top-right"
+        reverseOrder={false}
+        toastOptions={{
+          className: css.toastTextCenter,
+        }}
+      />
       {loading && <Loader />}
       {error && <ErrorMessage />}
       <ImageGallery imageList={images} openModal={openModal} />
-
-      <LoadMoreBtn onClick={handleLoadMore} isVisible={isVisible} />
+      {!loadingMore && !isSearching && (
+        <LoadMoreBtn onClick={handleLoadMore} isVisible={isVisible} />
+      )}
       {loadingMore && <LoaderMore />}
       <ImageModal
         isOpen={modalIsOpen}

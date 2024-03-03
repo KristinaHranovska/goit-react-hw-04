@@ -1,4 +1,5 @@
 import css from "./LoadMoreBtn.module.css";
+import PropTypes from "prop-types";
 
 const LoadMoreBtn = ({ onClick, isVisible }) => {
   return (
@@ -10,6 +11,10 @@ const LoadMoreBtn = ({ onClick, isVisible }) => {
       )}
     </div>
   );
+};
+LoadMoreBtn.propTypes = {
+  onClick: PropTypes.func,
+  isVisible: PropTypes.func,
 };
 
 export default LoadMoreBtn;

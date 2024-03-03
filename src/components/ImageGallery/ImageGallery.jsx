@@ -1,4 +1,5 @@
 import ImageCard from "../ImageCard/ImageCard";
+import PropTypes from "prop-types";
 import css from "./ImageGallery.module.css";
 
 const ImageGallery = ({ imageList, openModal }) => {
@@ -25,6 +26,15 @@ const ImageGallery = ({ imageList, openModal }) => {
       )}
     </section>
   );
+};
+
+ImageGallery.propTypes = {
+  imageList: PropTypes.arrayOf(
+    PropTypes.shape({
+      id: PropTypes.string,
+    })
+  ),
+  openModal: PropTypes.func,
 };
 
 export default ImageGallery;

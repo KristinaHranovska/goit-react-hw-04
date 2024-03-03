@@ -4,6 +4,7 @@ import { format } from "date-fns";
 import { disableBodyScroll, enableBodyScroll } from "body-scroll-lock";
 import css from "./ImageModal.module.css";
 import { useEffect } from "react";
+import PropTypes from "prop-types";
 
 const formatDate = (dateString) => {
   return format(new Date(dateString), "MMMM dd yyyy");
@@ -73,6 +74,32 @@ const ImageModal = ({ isOpen, onCloseModal, image }) => {
       )}
     </Modal>
   );
+};
+
+ImageModal.propTypes = {
+  isOpen: PropTypes.bool,
+  onCloseModal: PropTypes.func,
+  image: PropTypes.shape({
+    urls: PropTypes.shape({
+      regular: PropTypes.string,
+    }),
+    alt_description: PropTypes.string,
+    user: PropTypes.shape({
+      social: PropTypes.shape({
+        portfolio_url: PropTypes.string,
+      }),
+      name: PropTypes.string,
+      location: PropTypes.string,
+    }),
+    likes: PropTypes.number,
+    description: PropTypes.string,
+    tags: PropTypes.arrayOf(
+      PropTypes.shape({
+        title: PropTypes.string,
+      })
+    ),
+    created_at: PropTypes.string,
+  }),
 };
 
 export default ImageModal;
